@@ -1,0 +1,53 @@
+create 3 subnets 1 per VLAN sized for each departments 
+-Admin 
+-HR
+-IT
+
+using 192.168.20.0/24
+
+Assign VLAN 10,20,30 respectively to the departments
+instead of manually assigning IP to end devices of switch or AccessPoint it should be automatically assigned using DHCP 
+
+process:
+
+
+
+IP = 192.168.20.0/24
+Subnet mask = 255.255.255.000
+Total IPs: 256
+Usable IPs: 254
+
+For subnetting,
+3 subnet 
+/24 needs to borrow bits
+2^n >= 3
+
+n = 2
+so 2 bits is borrowed /24+2 = /26
+now ,
+
+new subnet mask = 255.255.255.192
+Total IPs = 64
+Usable IPs = 62
+
+for Admin,
+	Usable IPs = 192.168.20.1-62/26
+	network address = 192.168.20.0/26
+	broadcast address = 192.168.20.63
+
+
+for HR,
+	Usable IPs = 192.168.20.65-126/26
+	network address = 192.168.20.64/26
+	broadcast address = 192.168.20.127/26
+
+for IT,
+	Usable IPs = 192.168.20.129-190/26
+	network address = 192.168.20.128/26
+	broadcast address = 192.168.20.191/26
+
+free 192.168.20.193-254
+
+
+
+

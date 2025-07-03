@@ -1,0 +1,57 @@
+after setting vlan on switch
+
+en
+conf t 
+do wr
+
+int g0/0
+no sh
+exit
+
+conf t 
+int g0/0.10
+encapsulation dot1Q 10
+ip address 192.168.20.1 255.255.255.192
+exit
+
+int g0/0.20
+encapsulation dot1Q 20
+ip address 192.168.20.65 255.255.255.192
+exit
+
+int g0/0.30
+encapsulation dot1Q 30
+ip address 192.168.20.129 255.255.255.192
+exit
+
+do wr
+do sh start
+
+
+DHCP 
+
+service dhcp 
+ip dhcp pool Admin-Pool
+network 192.168.20.0 255.255.255.192
+default-router 192.168.20.1
+dns-server 192.168.20.1
+domain-name admin.com
+exit
+
+ip dhcp pool HR-Pool
+network 192.168.20.64 255.255.255.192
+default-router 192.168.20.65
+dns-server 192.168.20.65
+domain-name hr.com
+exit
+
+ip dhcp pool IT-Pool
+network 192.168.20.128 255.255.255.192
+default-router 192.168.20.129
+dns-server 192.168.20.129
+domain-name it.com
+exit
+
+do wr
+
+

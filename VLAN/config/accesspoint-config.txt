@@ -1,0 +1,5 @@
+after setting up VLAN on switch
+
+
+on each accesspoint port 1
+enter wifi name and pass on field SSID and WPA2-PSK(Authentication section)
