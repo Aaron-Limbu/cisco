@@ -77,6 +77,7 @@ do wr
 en 
 conf t 
 int g0/0.10
+encapsulation dot1Q 10
 ip address 192.168.10.1 255.255.255.000
 exit
 do wr
@@ -139,6 +140,7 @@ do wr
 en
 conf t
 int g0/0.20
+encapsulation dot1Q 20
 ip address 192.168.20.1 255.255.255.252
 exit 
 do wr
@@ -164,3 +166,10 @@ network 10.10.10.9 255.255.255.252 area 0
 network 192.168.20.0 255.255.255.000 area 0
 do wr
 
+
+(Additional : 
+router ospf 1 (1 for consistency across routers)
+
+below command "line vty 0 15"
+ip ssh version 2
+)
