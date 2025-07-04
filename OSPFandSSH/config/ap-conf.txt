@@ -1,0 +1,13 @@
+--access point 0 port 1
+SSID : HR-Wifi
+WPA2-PSK : hr123456
+
+--access point 1 port 1
+SSID : Admin
+WPA2-PSK : admin123
+
+--access point 2 port 1
+SSID : IT-Wifi
+WPA2-PSK : it123456
+
+

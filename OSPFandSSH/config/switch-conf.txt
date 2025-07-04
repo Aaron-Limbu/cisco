@@ -1,0 +1,52 @@
+CABLE : Copper Straight through
+
+--Admin Switch CLI--
+en 
+conf t
+switchport mode access
+switchport access vlan 10
+do wr
+exit 
+do sh start
+interface fa0/5
+switchport mode trunk
+do wr
+
+
+--HR Switch CLI--
+en 
+conf t
+switchport mode access
+switchport access vlan 20
+do wr
+exit
+do sh start
+interface fa0/5
+switchport mode trunk
+do wr
+
+--IT Switch CLI--
+
+en 
+conf t
+switchport mode access 
+switchport access vlan 30
+do wr
+exit
+do sh start
+interface fa0/5
+switchport mode trunk
+do wr
+
+
+
+// after setting up router till ssh 
+int fa0/2 (Note: this is not connected to router)
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation shutdown 
+do wr
+exit
+
+

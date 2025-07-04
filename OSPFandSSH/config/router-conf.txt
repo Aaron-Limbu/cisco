@@ -1,0 +1,166 @@
+MODULE : HWIC-2T
+CABLE: Serial DCE (for connecting to routers)
+
+
+--for 3 routers--
+en
+conf t 
+int Se0/1/0
+no sh
+int Se0/1/1
+no sh
+
+
+int g0/0
+no sh
+do wr
+
+--set clockrate of Se0/1/0 Note: router should be in DCE--
+int Se0/1/0
+clock rate 64000
+
+--how to know DCE or DTE--
+--on router CLI--
+(config)>show controller serial 0/1/0
+
+//After setting up vlan on each departments
+--router 0
+en
+conf t
+int Se0/1/0
+ip address 10.10.10.1 255.255.255.252
+int Se0/1/1
+ip address 10.10.10.9 255.255.255.252
+do wr
+//after setting ip for all Se on all routers
+
+en 
+conf t
+int g0/0.30
+encapsulation dot1Q 30
+ip address 192.168.30.1 255.255.255.000 
+exit
+do wr
+do sh start
+
+//after setting ip addresses for g0 on all routers, now dhcp setup 
+en 
+conf t
+service dhcp 
+ip dhcp pool IT-Pool
+network 192.168.30.0 255.255.255.000
+default-router 192.168.30.1 
+dns-server 192.168.30.1
+domain-name it.com
+do wr
+exit
+
+//after setting up dhcp on all routers, now OSPF(Open Shortest Path First)
+en 
+conf t
+router ospf 10
+network 10.10.10.1 255.255.255.252 area 0
+network 10.10.10.9 255.255.255.252 area 0
+network 192.168.30.0 255.255.255.000 area 0
+do wr
+
+--router 1
+en 
+conf t
+int Se0/1/0
+ip address 10.10.10.1 255.255.255.252
+int Se0/1/1
+ip address 10.10.10.5 255.255.255.252
+do wr
+// note line 31
+
+en 
+conf t 
+int g0/0.10
+ip address 192.168.10.1 255.255.255.000
+exit
+do wr
+do sh start
+
+// note line 42
+en 
+conf t 
+service dhcp 
+ip dhcp pool Admin-Pool
+network 192.168.10.0 255.255.255.000
+default-router 192.168.10.1 
+dns-server 192.168.10.1
+domain-name admin.com
+do wr
+
+// note line 52
+en
+conf t 
+router ospf 10 
+network 10.10.10.1 255.255.255.252 area 0
+network 10.10.10.5 255.255.255.252 area 0
+network 192.168.10.0 255.255.255.000 area 0
+do wr
+
+// SSH configuration on admin router with username: admin and password: cisco123 (Note : complete ospf on all routers)
+-setup hostname
+en
+conf t
+hostname A-Router
+ip domain-name admin
+username admin password cisco123
+do wr
+
+-ssh conf
+crypto key generate rsa
+(bits for module) 1024
+line vty 0 15
+login local
+transport input ssh
+do wr
+exit
+
+(for testing : 
+cmd prompt on PC 
+C:\> ssh -l admin 10.10.10.1
+)
+
+
+--router 2
+en 
+conf t
+int Se0/1/0
+ip address 10.10.10.5 255.255.255.252
+int Se0/1/1
+ip address 10.10.10.9 255.255.255.252
+do wr
+// note line 31
+
+en
+conf t
+int g0/0.20
+ip address 192.168.20.1 255.255.255.252
+exit 
+do wr
+do sh start
+
+// note line 42
+en
+conf t
+service dhcp 
+ip dhcp pool HR-Pool
+network 192.168.20.0 255.255.255.000
+default-router 192.168.20.1
+dns-server 192.168.20.1
+domain-name hr.com
+do wr
+
+// note line 52
+en 
+conf t
+router ospf 10
+network 10.10.10.5 255.255.255.252 area 0
+network 10.10.10.9 255.255.255.252 area 0
+network 192.168.20.0 255.255.255.000 area 0
+do wr
+

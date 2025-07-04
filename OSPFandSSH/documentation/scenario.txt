@@ -1,0 +1,31 @@
+VLAN setup on all switches
+	Admin(VLAN 10)
+	HR(VLAN 20)
+	IT (VLAN 30)
+
+assign access ports on PCs to correct VLAN
+configure trunk port toward router
+
+configure subinterfaces on each router's trunk port: 
+	g0/0.10	-> VLAN 10 -> 192.168.10.1/24
+	g0/0.20 -> VLAN 20 -> 192.168.20.1/24
+	g0/0.30 -> VLAN 30 -> 192.168.30.1/24
+
+configure OSPF on all routes using process ID 1.
+advertise all VLAN subnets and inter-router link networks.
+verify routing with show ip route and ping access routers.
+
+configure each router
+	hostname, domain name and RSA keys
+	local login user: admin/cisco123
+	ssh version 2
+restrict VTY to ssh only	
+test ssh from PC in the IT department
+
+
+summary :
+VLAN on all switches
+inter-VLAN routing via router-on-a-stick
+OSPF between the routers
+ssh remote access to all routers
+switchport port-security & mac-address sticky
