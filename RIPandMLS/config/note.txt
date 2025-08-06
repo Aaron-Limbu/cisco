@@ -1,0 +1,13 @@
+email server - cloud router (20.0.0.0/30)
+cloud router - router 1 - router 0 (10.10.10.4/30 , 10.10.10.0/30)
+
+
+MLS 1 (3650) (3650)
+switch 0,3,2,4
+4-> server 2-> web and FTP
+
+
+i used int range fa0/2-3 or 2-3 for practice but it should be range fa0/2-24 i guess
+
+other acl are just blocking port 80 from vlan 40 to vlan 60
+(for that i changed dhcp pools dns-server to .4.5 which is dhcp assigned ip on vlan 40 )

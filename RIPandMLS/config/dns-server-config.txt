@@ -1,0 +1,3 @@
+dns service on 
+name : www.cisco.com
+address : 192.168.4.4 (web server ip after dhcp ip is assigned)

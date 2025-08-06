@@ -1,0 +1,14 @@
+en 
+conf t
+
+int range fa0/2-3
+switchport mode access
+switchport access vlan 50 
+do wr
+
+
+int fa0/1
+switchport mode trunk 
+do wr
+
+

@@ -1,0 +1,23 @@
+static ip : 20.0.0.2 
+subnet mask : 255.255.255.252
+default-gateway : 20.0.0.1
+
+
+SMTP POP3 service on 
+domain name : gmail.com
+user : user1
+password : user1234
+
+user : user2
+password : user1234
+
+//on client PC1 email
+Your name : eee
+email : user1@gmail.com
+
+incoming mail server : 20.0.0.2
+outgoing mail server : 20.0.0.2
+
+user name : user1 
+password : user1234
+//same for another PC

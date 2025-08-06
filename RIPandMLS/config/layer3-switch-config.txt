@@ -1,0 +1,29 @@
+//this is connected to router 1
+
+en 
+conf t
+
+int g1/0/2
+switchport mode trunk 
+switchport access vlan 10 
+do wr
+
+int g1/0/3
+switchport mode trunk 
+switchport access vlan 20 
+do wr
+
+int g1/0/4 
+switchport mode trunk
+switchport access vlan 30
+do wr
+
+int g1/0/5
+switchport mode trunk 
+switchport access vlan 40 
+do wr
+
+int g1/0/1
+switchport mode trunk 
+do wr
+

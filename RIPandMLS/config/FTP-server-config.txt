@@ -1,0 +1,24 @@
+ip : 192.168.4.3 (dhcp assigned ip )
+
+//FTP service 
+by default 
+username : cisco 
+password : cisco 
+ 
+//add 
+username : test
+password : test
+
+
+//for testing 
+PC1
+
+//create test.txt with "hello" on text editor 
+ftp 192.168.4.3
+put default username and password
+put test.txt
+
+PC2
+ftp 192.168.4.3
+put added username and password 
+get test.txt

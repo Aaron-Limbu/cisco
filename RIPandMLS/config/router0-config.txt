@@ -1,0 +1,48 @@
+en
+conf t
+
+int g0/0
+no sh 
+
+int Se0/3/0
+no sh
+
+
+int Se/3/0
+ip address 10.10.10.2 255.255.255.252 
+do wr
+
+int g0/0.50
+encapsulation dot1Q 50 
+ip address 192.168.5.1 255.255.255.000
+do wr
+
+int g0/0.60 
+encapsulation dot1Q 60 
+ip address 192.168.6.1 255.255.255.000
+do wr
+
+service dhcp 
+ip dhcp pool vlan50 
+network 192.168.5.0 255.255.255.192
+default-router 192.168.5.1 
+dns-server 192.168.5.1
+exit
+do wr
+
+ip dhcp pool vlan60
+network 192.168.6.0 255.255.255.192
+default-router 192.168.6.1 
+dns-server 192.168.6.1
+exit
+do wr
+
+//on conf
+router rip 
+version 2 
+network 192.168.5.0
+network 192.168.6.0
+network 10.10.10.0
+exit 
+do wr
+
